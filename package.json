@@ -1,0 +1,26 @@
+{
+  "name": "node-pro",
+  "version": "1.0.0",
+  "description": "proj",
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "emailjs-com": "^2.6.4",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.7",
+    "node": "^15.14.0",
+    "nodemailer": "^6.6.0",
+    "nodemon": "^2.0.7",
+    "xoauth2": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon app.js",
+    "nodemon": "app.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
