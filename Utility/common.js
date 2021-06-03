@@ -6,6 +6,10 @@ function encryptPassword(plainPassword){
     return  bcrypt.hash(plainPassword, 10);
 
 }
+async function decryptPassword(password,encryptedPassword){
+    return  bcrypt.compare(password,encryptedPassword);
+
+}
 
 function generateToken(){
     return jwt.sign( {} , SECRET_KEY)
@@ -18,5 +22,6 @@ function verifyToken(token){
 module.exports={
     encryptPassword,
     generateToken,
-    verifyToken
+    verifyToken,
+    decryptPassword
 }

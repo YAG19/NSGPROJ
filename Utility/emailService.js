@@ -24,6 +24,7 @@ var mailOptions = {
   html: `<b>${text}</b>`
 };
 
+// console.log(recieverId,subject,text)
 // smtpTransport.sendMail(mailOptions, function(error, response) {
 //   if (error) {
 //     console.log(error);
