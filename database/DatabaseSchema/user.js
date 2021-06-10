@@ -1,4 +1,4 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
   const { Schema } = mongoose;
 
   const defination={
@@ -19,7 +19,8 @@ const mongoose=require('mongoose');
     DOB: {type: String
     },
 
-    password: {type: String, 
+    password: {
+      type: String, 
       required: true,
     },
 

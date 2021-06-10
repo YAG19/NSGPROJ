@@ -1,3 +1,4 @@
+const { response } = require('express');
 const user = require('../database/DatabaseSchema/user');
 const commonLib = require('../Utility/common')
 const emailService = require('../Utility/emailService.js')
@@ -8,7 +9,8 @@ async function registerUser(userDetails) {
 
 
     const isuserExists = await isUserExists(userDetails.email);
-    if (isuserExists.length > 0) {
+
+    if (isuserExists) {
         throw "user alraedy Exists";
     }
 
@@ -105,15 +107,41 @@ async function generateResetPasswordLink(email) {
         
         console.log( "email Responese" + token)
 
-        const message = "Your reset password link is:" + 'http://localhost:3000/resetPassword?' + token;
-        const emailResponse = await emailService.sendEmail('yagnesh.patel9898@gmail.com',  message);
+        const message = "Your reset password link is:" + 'http://localhost:3000/resetPassword?token=' + token;
+        const emailResponse = await emailService.sendEmail('yagnesh.patel9898@gmail.com','RESET PASSWORD LINK' , message);
 
 
-    } else {
+    } 
+    else {
         throw 'Email does not exists'
     }
 }
 
+async function resetPassword(body){
+
+    console.log(body)
+
+    const userDetail = await isUserExists(body.email);
+
+        if(userDetail){
+            //Check for token valid or not
+            const tokenStatus = commonLib.verifyToken(body.token);
+
+            if(tokenStatus){
+                //Enctypt the new password
+                const encryptedPassword = commonLib.encryptPassword(body.password)
+                //Update into database 
+                 console.log(encryptedPassword)
+                const response = await user.updateOne(
+                    { email : body.email },
+                    { $set: { password : encryptedPassword } }
+                )
+                console.log(response)
+                return response;
+            }
+
+        }
+}
 
 
 module.exports = {
@@ -121,5 +149,6 @@ module.exports = {
     isUserExists,
     testPassword,
     userLogin,
-    generateResetPasswordLink
+    generateResetPasswordLink,
+    resetPassword
 };

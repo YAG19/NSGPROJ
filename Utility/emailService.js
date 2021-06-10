@@ -14,12 +14,13 @@ var smtpTransport = nodemailer.createTransport({
       accessToken: process.env.CLIENT_ACCESS_TOKEN
   }
 }); 
-async function sendEmail(recieverId,text){
+
+async function sendEmail(recieverId,subject,text){
 
 var mailOptions = {
   from: "yagnesh.patel9898@gmail.com",
   to: recieverId,
-  subject: "NS Node Project",
+  subject: subject,
   generateTextFromHTML: true,
   html: `<b>${text}</b>`
 };
